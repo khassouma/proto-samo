@@ -29,9 +29,10 @@ class DossierController extends Controller
 
         $dossiers = $query->get();
 
-        return $dossiers;
 
-        // return view('pages.dossier.index', $dossiers);
+        return view('pages.dossier.index', compact(
+            'dossiers',
+        ));
     }
 
     public function store(StoreDossierRequest $request)
