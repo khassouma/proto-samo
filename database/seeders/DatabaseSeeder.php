@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // 1. Teams
-        $teams = Team::factory(3)->create();
+        $teams = Team::factory(5)->create();
 
         foreach ($teams as $team) {
 
@@ -38,13 +38,13 @@ class DatabaseSeeder extends Seeder
             ]);
 
             // 3. Agents
-            $agents = User::factory(5)->create([
+            $agents = User::factory(20)->create([
                 'role' => 'agent',
                 'team_id' => $team->id,
             ]);
 
             // 4. Dossiers
-            $dossiers = Dossier::factory(10)->create([
+            $dossiers = Dossier::factory(50)->create([
                 'chef_equipe_id' => $chef->id,
             ]);
 
