@@ -19,7 +19,8 @@ class DossierFactory extends Factory
     public function definition(): array
     {
         return [
-            'matricule' => fake()->unique()->numerify('#####'),
+            'tiers_payant' => fake()->unique()->regexify('[PHCIR][0-9]{1,4}'),
+            'dg' => fake()->unique()->numerify('#####'),
             'nombre_fiches' => fake()->numberBetween(1, 20),
             'type' => fake()->randomElement(['pharmacie', 'soins', 'examens']),
             'categorie' => fake()->randomElement(['hopital', 'cscom', 'normal']),

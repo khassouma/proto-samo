@@ -234,8 +234,7 @@ Dashboard
                      <table id="basic-table" class="table mb-0 table-striped" role="grid">
                         <thead>
                            <tr>
-                              <th>ID</th>
-                              {{-- <th>tiers payant</th> --}}
+                              <th>Tiers payant</th>
                                <th>Type</th>
                                <th>Categorie</th>
                               <th>Feuilles</th>
@@ -244,8 +243,7 @@ Dashboard
                         <tbody>
                             @foreach ($lastDossiers as $dossier )
                            <tr>
-                            <td>{{$dossier->matricule}}</td>
-                             {{-- <td>{{$dossier->matricule}}</td> --}}
+                            <td>{{$dossier->tiers_payant}}</td>
                              <td>{{$dossier->type}}</td>
                              <td>{{$dossier->categorie}}</td>
                               <td>{{$dossier->nombre_fiches}}</td>

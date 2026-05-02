@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('dossiers', function (Blueprint $table) {
             $table->id();
 
-            $table->string('matricule')->unique();
+            $table->string('tiers_payant')->unique();
+            $table->string('dg');
             $table->integer('nombre_fiches')->default(0);
 
             $table->enum('type', ['pharmacie', 'soins', 'examens']);
@@ -24,7 +25,8 @@ return new class extends Migration
                 'non_liquide',
                 'en_liquidation',
                 'pre_controle',
-                'valide'
+                'valide',
+                'archive'
             ])->default('non_liquide');
 
             $table->foreignId('chef_equipe_id')

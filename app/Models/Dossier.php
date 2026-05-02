@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['matricule', 'nombre_fiches', 'type', 'categorie', 'chef_equipe_id', 'has_issue', 'issue_note', 'issue_resolved_at', 'non_liquide', 'date_reception', 'date_validation'])]
+#[Fillable(['tiers_payant', 'dg', 'nombre_fiches', 'type', 'categorie', 'chef_equipe_id', 'has_issue', 'issue_note', 'issue_resolved_at', 'statut', 'date_reception', 'date_validation'])]
 class Dossier extends Model
 {
     /** @use HasFactory<\Database\Factories\DossierFactory> */

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 // use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Auth;
 
 class StoreDossierRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreDossierRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()?->isChefEquipe();
+        return (bool) Auth::user()?->isChefEquipe();
     }
 
     /**
@@ -24,7 +25,8 @@ class StoreDossierRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'matricule' => 'required|unique:dossiers',
+            'dg' => 'required',
+            'tiers_payant' => 'required',
             'nombre_fiches' => 'required|integer|min:1',
             'type' => 'required|in:pharmacie,soins,examens',
             'categorie' => 'required|in:hopital,cscom,normal',

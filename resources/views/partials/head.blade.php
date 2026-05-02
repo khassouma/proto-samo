@@ -7,7 +7,7 @@
             </button>
             <a href="{{ route('dashboard') }}" class="navbar-brand">
                 <!--Logo start-->
-                   <img src="../assets/images/inps.png" width="40" height="35" />
+                   <img src="{{ asset('../assets/images/inps.png') }}" width="40" height="35" />
                 <!--logo End-->        <h4 class="logo-title">SAMO</h4>
             </a>
             <!-- Horizontal Menu Start -->
@@ -19,10 +19,10 @@
                      <!--Logo start-->
                      <div class="logo-main">
                          <div class="logo-normal">
-                           <img src="../assets/images/inps.png" width="40" height="35" />
+                           <img src="{{ asset('../assets/images/inps.png') }}" width="40" height="35" />
                          </div>
                          <div class="logo-mini">
-                              <img src="../assets/images/inps.png" width="30" height="30" />
+                              <img src="{{ asset('../assets/images/inps.png') }}" width="30" height="30" />
                          </div>
                      </div>
                      <!--logo End-->
@@ -54,12 +54,12 @@
 
                 <li class="nav-item dropdown">
                   <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../assets/images/avatars/01.png" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
-                    <img src="../assets/images/avatars/avtar_1.png" alt="User-Profile" class="theme-color-purple-img img-fluid avatar avatar-50 avatar-rounded">
-                    <img src="../assets/images/avatars/avtar_2.png" alt="User-Profile" class="theme-color-blue-img img-fluid avatar avatar-50 avatar-rounded">
-                    <img src="../assets/images/avatars/avtar_4.png" alt="User-Profile" class="theme-color-green-img img-fluid avatar avatar-50 avatar-rounded">
-                    <img src="../assets/images/avatars/avtar_5.png" alt="User-Profile" class="theme-color-yellow-img img-fluid avatar avatar-50 avatar-rounded">
-                    <img src="../assets/images/avatars/avtar_3.png" alt="User-Profile" class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{{ asset('../assets/images/avatars/01.png') }}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{{ asset('../assets/images/avatars/avtar_1.png') }}" alt="User-Profile" class="theme-color-purple-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{{ asset('../assets/images/avatars/avtar_2.png') }}" alt="User-Profile" class="theme-color-blue-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{{ asset('../assets/images/avatars/avtar_4.png') }}" alt="User-Profile" class="theme-color-green-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{{ asset('../assets/images/avatars/avtar_5.png') }}" alt="User-Profile" class="theme-color-yellow-img img-fluid avatar avatar-50 avatar-rounded">
+                    <img src="{{ asset('../assets/images/avatars/avtar_3.png') }}" alt="User-Profile" class="theme-color-pink-img img-fluid avatar avatar-50 avatar-rounded">
                     <div class="caption ms-3 d-none d-md-block">
                         <h6 class="mb-0 caption-title">{{ auth()->user()->email }}</h6>
                         <p class="mb-0 caption-sub-title">{{ auth()->user()->role }}</p>

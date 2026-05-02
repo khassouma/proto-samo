@@ -14,10 +14,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Routes Dossiers
     Route::get('/dashboard/dossiers', [DossierController::class, 'index'])->name('dossiers');
-    Route::post('/dashboard/dossiers', [DossierController::class, 'store']);
-    Route::get('/dashboard/dossiers/{dossier}', [DossierController::class, 'show']);
-    Route::put('/dashboard/dossiers/{dossier}', [DossierController::class, 'update']);
-    Route::delete('/dashboard/dossiers/{dossier}', [DossierController::class, 'destroy']);
+    Route::get('/dashboard/dossiers/add', [DossierController::class, 'add'])->name('add.dossier');
+    Route::post('/dashboard/dossiers', [DossierController::class, 'store'])->name('store.dossier');
+    Route::get('/dashboard/dossiers/{dossier}', [DossierController::class, 'show'])->name('show.dossier.view');
+    Route::get('/dashboard/maj/dossiers/{dossier}', [DossierController::class, 'update_view'])->name('update.dossier.view');
+    Route::put('/dashboard/dossiers/{dossier}', [DossierController::class, 'update'])->name('update.dossier');
+    Route::delete('/dashboard/dossiers/{dossier}', [DossierController::class, 'destroy'])->name('delete.dossier');
 
     // Routes Sheets
     Route::get('/dashboard/sheets', [ProductivitySheetController::class, 'index'])->name('sheets');

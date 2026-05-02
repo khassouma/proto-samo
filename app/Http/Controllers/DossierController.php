@@ -27,7 +27,8 @@ class DossierController extends Controller
             $query->where('chef_equipe_id', $user->id);
         }
 
-        $dossiers = $query->get();
+        $dossiers = $query->latest('date_reception')->get();
+
 
 
         return view('pages.dossier.index', compact(
@@ -35,21 +36,50 @@ class DossierController extends Controller
         ));
     }
 
+    public function add()
+    {
+        $user = Auth::user();
+
+        $this->authorize('viewAny', Dossier::class);
+
+        $query = Dossier::where('statut', '!=', 'archive');
+
+        // if (!$user->isChefService()) {
+        //     $query->where('chef_equipe_id', $user->id);
+        // }
+
+        // $dossiers = $query->get();
+
+
+        return view('pages.dossier.add');
+    }
+
     public function store(StoreDossierRequest $request)
     {
         $this->authorize('create', Dossier::class);
-
         $data = $request->validated();
         $data['chef_equipe_id'] = Auth::id();
 
-        return Dossier::create($data);
+        Dossier::create([
+            'tiers_payant' => $data['tiers_payant'],
+            'dg' => $data['dg'],
+            'nombre_fiches' => $data['nombre_fiches'],
+            'categorie' => $data['categorie'],
+            'statut' => 'non_liquide',
+            'chef_equipe_id' => Auth::user()->id,
+            'type' => $data['type'],
+            'date_reception' => now(),
+        ]);
+
+        return redirect('/dashboard/dossiers')->with('status', 'le produit a été ajouter');
+
     }
 
     public function show(Dossier $dossier)
     {
         $this->authorize('view', $dossier);
 
-        return $dossier;
+        return view('pages.dossier.show', compact('dossier'));
     }
 
     public function update(UpdateDossierRequest $request, Dossier $dossier)
@@ -66,6 +96,11 @@ class DossierController extends Controller
         ]);
     }
 
+    public function update_view(Dossier $dossier){
+        $this->authorize('view', $dossier);
+        return view('pages.dossier.update', compact('dossier'));
+    }
+
     public function destroy(Dossier $dossier)
     {
         $this->authorize('delete', $dossier);
@@ -74,8 +109,6 @@ class DossierController extends Controller
             'statut' => 'archive'
         ]);
 
-        return response()->json([
-            'message' => 'Dossier archivé'
-        ]);
+        return redirect('/dashboard/dossiers')->with('status', 'le dossier a été supprimer');
     }
 }
