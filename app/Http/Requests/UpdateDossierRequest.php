@@ -13,7 +13,7 @@ class UpdateDossierRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user()->id?->isChefEquipe();
+        return (bool) Auth::user()?->isChefEquipe();
     }
 
     /**
@@ -24,8 +24,23 @@ class UpdateDossierRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre_fiches' => 'integer|min:1',
-            'statut' => 'in:non_liquide,en_liquidation,pre_controle,valide',
+            'tiers_payant' => 'required|string|max:255',
+            'dg' => 'required|string|max:255',
+            'nombre_fiches' => 'required|integer|min:0',
+
+            'type' => 'required|in:pharmacie,soins,examens',
+            'categorie' => 'required|in:hopital,cscom,normal',
+
+            'statut' => 'required|in:non_liquide,en_liquidation,pre_controle,valide,archive',
+
+            'chef_equipe_id' => 'nullable|exists:users,id',
+
+            'has_issue' => 'nullable|boolean',
+            'issue_note' => 'nullable|string',
+
+            'date_reception' => 'nullable|date',
+            'date_validation' => 'nullable|date',
+            'issue_resolved_at' => 'nullable|date',
         ];
     }
 }

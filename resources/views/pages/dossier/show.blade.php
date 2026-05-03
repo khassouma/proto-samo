@@ -16,6 +16,11 @@
                 </ol>
             </nav>
         </div>
+            @if (Session::has('status'))
+                <div class="alert alert-success">
+                        {{Session::get('status')}}
+                </div>
+            @endif
         <div class="row">
             <div class="col-sm-6 col-lg-6">
                 <div class="card">
@@ -31,6 +36,7 @@
                                 <li class="list-group-item">Type: {{strtoupper($dossier->type)}}</li>
                                 <li class="list-group-item">Categorie: {{strtoupper($dossier->categorie)}}</li>
                                 <li class="list-group-item">Equipe: {{$dossier->chef_equipe_id}}</li>
+                                 <li class="list-group-item">Statut: {{strtoupper($dossier->statut)}}</li>
                                 <li class="list-group-item">Probleme: {{ $dossier->has_issue ? 'OUI' : 'NON' }}</li>
                                 <li class="list-group-item">Recepetion:  {{ \Carbon\Carbon::parse($dossier->date_reception)->format('d/m/y') }}</li>
                                 <li class="list-group-item">Validation:  {{ \Carbon\Carbon::parse($dossier->date_validation)->format('d/m/y') }}</li>

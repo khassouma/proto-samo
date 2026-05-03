@@ -36,20 +36,26 @@ class DossierController extends Controller
         ));
     }
 
-    public function add()
+    public function archive()
     {
         $user = Auth::user();
 
         $this->authorize('viewAny', Dossier::class);
 
-        $query = Dossier::where('statut', '!=', 'archive');
+        $query = Dossier::where('statut', 'archive');
 
-        // if (!$user->isChefService()) {
-        //     $query->where('chef_equipe_id', $user->id);
-        // }
+        if (!$user->isChefService()) {
+            $query->where('chef_equipe_id', $user->id);
+        }
 
-        // $dossiers = $query->get();
+        $dossiers = $query->get();
 
+        return view('pages.dossier.archive', compact('dossiers'));
+    }
+
+    public function add()
+    {
+        $this->authorize('viewAny', Dossier::class);
 
         return view('pages.dossier.add');
     }
@@ -72,7 +78,6 @@ class DossierController extends Controller
         ]);
 
         return redirect('/dashboard/dossiers')->with('status', 'le produit a été ajouter');
-
     }
 
     public function show(Dossier $dossier)
@@ -85,18 +90,43 @@ class DossierController extends Controller
     public function update(UpdateDossierRequest $request, Dossier $dossier)
     {
         $this->authorize('update', $dossier);
-
         $data = $request->validated();
+        $ancienHasIssue = $dossier->has_issue;
 
-        $dossier->update($data);
+        $dossier->tiers_payant = $data['tiers_payant'];
+        $dossier->dg = $data['dg'];
+        $dossier->nombre_fiches = $data['nombre_fiches'];
 
-        return response()->json([
-            'message' => 'Dossier mis à jour avec succès',
-            'data' => $dossier
-        ]);
+        $dossier->type = $data['type'];
+        $dossier->categorie = $data['categorie'];
+
+        $dossier->statut = $data['statut'] ?? $dossier->statut;
+
+        $dossier->chef_equipe_id = $data['chef_equipe_id'] ?? $dossier->chef_equipe_id;
+
+        // gestion des issues
+        $dossier->has_issue = $data['has_issue'] ?? false;
+        $dossier->issue_note = $data['issue_note'] ?? null;
+        if ($ancienHasIssue === true && $dossier->has_issue === false) {
+            $dossier->issue_resolved_at = now();
+        }
+
+        // dates
+        if (isset($data['statut']) && $data['statut'] === 'valide') {
+            $dossier->statut = 'valide';
+            $dossier->date_validation = now();
+        } else {
+            $dossier->statut = $data['statut'] ?? $dossier->statut;
+        }
+
+
+        $dossier->save();
+
+        return redirect('/dashboard/dossiers/' . $dossier->id)->with('status', 'le dossier a été modifier');
     }
 
-    public function update_view(Dossier $dossier){
+    public function update_view(Dossier $dossier)
+    {
         $this->authorize('view', $dossier);
         return view('pages.dossier.update', compact('dossier'));
     }
