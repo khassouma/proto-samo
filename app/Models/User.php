@@ -74,6 +74,8 @@ class User extends Authenticatable
     {
         return $query->where('role', 'agent');
     }
+
+  
     /**
      * Get the attributes that should be cast.
      *

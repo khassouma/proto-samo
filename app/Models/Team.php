@@ -18,8 +18,20 @@ class Team extends Model
         return $this->hasMany(User::class);
     }
 
+    public function chef()
+    {
+        return $this->hasOne(User::class)
+            ->where('role', 'chef_equipe');
+    }
+
     public function sheets()
     {
         return $this->hasMany(ProductivitySheet::class);
+    }
+
+    public function agents()
+    {
+        return $this->hasMany(User::class)
+            ->where('role', 'agent');
     }
 }

@@ -38,7 +38,8 @@ class TeamController extends Controller
             'teams',
             'team',
             'members',
-            'users'
+            'users',
+            'user'
         ));
     }
 

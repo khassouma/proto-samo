@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <label class="form-label">Note du problème</label>
                                 <textarea name="issue_note" class="form-control" rows="4"
-                                    placeholder="{{ $dossier->has_issue ? 'Décrire le problème...' : 'Aucun probleme' }}">{{ old('issue_note', $dossier->has_issue ? issue_note : '') }}</textarea>
+                                    placeholder="{{ $dossier->has_issue ? 'Décrire le problème...' : 'Aucun probleme' }}">{{ old('issue_note', $dossier->has_issue ?  $dossier->issue_note : '') }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label>
